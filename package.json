@@ -1,0 +1,22 @@
+{
+  "name": "weatherify",
+  "version": "1.0.0",
+  "description": "A web application built with HTML, CSS, JavaScript, Tailwind CSS and Open Weather API.",
+  "main": "app.js",
+  "scripts": {
+    "test": "tailwindcss -i ./src/input.css -o ./dist/style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darshana-wishwajith/Weatherify.git"
+  },
+  "author": "Darshana Wishwajith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darshana-wishwajith/Weatherify/issues"
+  },
+  "homepage": "https://github.com/darshana-wishwajith/Weatherify#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
