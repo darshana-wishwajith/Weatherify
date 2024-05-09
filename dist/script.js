@@ -1,6 +1,6 @@
 import {OpenWeatherAPIKey} from '../keys.js';
 
-const city = "Colombo";
+const city = "Kalubululanda";
 const limit = 1;
 
 async function getCoordinates(city, limit, apiKey){
@@ -78,6 +78,8 @@ async function processWeatherData(){
         wind:{deg:windDirection, speed:windSpeed, gust:windGust}
 
     } = weatherData;
+
+    console.log(weatherData);
 
     //console.log(forecastData.list);
 
