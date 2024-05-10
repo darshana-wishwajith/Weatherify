@@ -12,11 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body class="overflow-x-hidden dark:bg-dark-bg bg-light-bg">
-    <div class="z-0">
+<body class="relative overflow-x-hidden dark:bg-dark-bg bg-light-bg">
+    <div class="relative z-0">
         <div class="w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl absolute top-[-100px] left-[-100px]"></div>
         <div class="w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl absolute bottom-[-100px] right-[-100px]"></div>
-        <div></div>
         <div class="w-[500px] h-[500px] bg-blue-500/10 blur-3xl rounded-full absolute top-[30%] left-[30%]"></div>
     </div>
 
@@ -48,15 +47,15 @@
         <section class="pb-3 divide-y divide-dark-border/10">
             <div class="flex items-center justify-between px-3 m-3">
                 <!-- Unit Selector -->
-                <div class="text-sm ">
+                <div class="pt-3 text-sm">
                     <div class="px-5 py-1 mb-3 text-center border rounded-full cursor-pointer text-dark-txt bg-dark-bg-secondary border-dark-border/10 outline-accent/50 outline-offset-4 outline-2 focus" id="selectUnit">
                         metric &nbsp; &#11167;
                     </div>
                     <div class="absolute z-50 hidden border divide-y rounded-md text-start text-dark-txt bg-dark-bg-secondary border-dark-border/10 divide-dark-border/10" id="unitList">
-                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover" onclick="getUnit('Select a unit');">Select a unit</div>
-                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover" onclick="getUnit('standard');">standard</div>
-                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover" onclick="getUnit('metric');">metric</div>
-                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover" onclick="getUnit('imperial');">imperial</div>
+                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover getUnit" id="0">Select a unit</div>
+                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover getUnit" id="1">standard</div>
+                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover getUnit" id="2">metric</div>
+                        <div class="px-5 py-2 cursor-pointer hover:bg-dark-bg-secondary-hover getUnit" id="3">imperial</div>
                     </div>        
                 </div>
                 
@@ -71,7 +70,7 @@
                     </div>
                     <input type="text" class="px-2 text-sm text-white bg-transparent border-none outline-none grow" placeholder="Search for location" id="locationSearch">
                     <button class="px-2 py-1 font-medium bg-[#FFC322] rounded-full text-sm hidden transition-all" id="defaultBtn">Set as default</button>
-                    <button class="px-10 py-1 rounded-full bg-accent">
+                    <button id="locationSearchBtn" class="px-10 py-1 rounded-full bg-accent">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white stroke-current fill-none">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                           </svg>
@@ -79,7 +78,7 @@
                 </div>
 
                 <!-- Default Location -->
-                <div class="flex items-center justify-center gap-2 px-5 py-1 mb-1 text-sm text-center border rounded-full cursor-pointer text-dark-txt bg-dark-bg-secondary border-dark-border/10 outline-accent/50 outline-offset-4 outline-2 focus">
+                <div class="flex items-center justify-center gap-2 px-5 py-1 mb-1 text-sm text-center border rounded-full cursor-pointer text-dark-txt bg-dark-bg-secondary border-dark-border/10 outline-accent/50 outline-offset-4 outline-2 focus" id="defaultLocationSelector">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 font-bold strok-current text-dark-txt fill-none">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -90,15 +89,15 @@
                 </div>
             </div>
 
-            <div class="px-3 pt-1 text-sm text-dark-heading">
+            <div class="hidden px-3 pt-1 text-sm text-dark-heading spawn" id="weatherDataContainer">
                 <div class="grid grid-cols-4 grid-rows-2 gap-3 pt-2">
                     <div class="col-span-2 row-span-2 px-10 py-10 border rounded-2xl border-dark-border/10 bg-white/5 backdrop-blur-3xl">
                         <div class="flex justify-center text-lg font-semibold">
                             <div>
                                 <img src="../resources/icons/Latitude.svg" class="inline w-6 h-6 stroke-current text-dark-heading fill-none">
                                 <span id="city">Welimada</span>,
-                                <span id="province">Uva Province</span>,
-                                <span id="counrty">LK</span>
+                                <span id="state">Uva Province</span>,
+                                <span id="country">LK</span>
                             </div>
                         </div>
 
@@ -122,12 +121,12 @@
 
                         <div class="flex justify-center gap-5">
                             <div class="px-10 py-4 bg-transparent border divide-y rounded-2xl border-dark-border/10 backdrop-blur-3xl grow divide-dark-border/10">
-                                <h3 class="text-3xl font-semibold text-center">MONDAY</h3>
-                                <p class="text-xl text-center text-dark-txt">20224-09-05</p>
+                                <h3 class="text-3xl font-semibold text-center" id="today">MONDAY</h3>
+                                <p id="todayDate" class="text-xl text-center text-dark-txt">20224-09-05</p>
                             </div>
                             <div class="px-10 py-4 bg-transparent border divide-y divide-dark-border/10 rounded-2xl border-dark-border/10 backdrop-blur-3xl grow">
-                                <h3 class="text-3xl font-semibold text-center">08:35</h3>
-                                <p class="text-xl text-center text-dark-txt">AM</p>
+                                <h3 id="clock" class="text-3xl font-semibold text-center">08:35</h3>
+                                <p id="meridiem"class="text-xl text-center text-dark-txt">AM</p>
                             </div>
                         </div>
                     </div>
@@ -137,49 +136,49 @@
                                 <img src="../resources/icons/humidity.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">&nbsp; &nbsp;
                                 <span >Humidity</span>
                             </div>
-                            <span class="text-dark-txt">76%</span>
+                            <span id="humidity" class="text-dark-txt">76%</span>
                         </div>
                         <div class="flex justify-between px-10 py-3">
                             <div class="flex items-center">
                                 <img src="../resources/icons/pressure.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">&nbsp; &nbsp;
-                                <span >Pressure</span>
+                                <span>Pressure</span>
                             </div>
-                            <span class="text-dark-txt">1012 mBar</span> 
+                            <span id="pressure" class="text-dark-txt">1012 mBar</span> 
                         </div>
                         <div class="flex justify-between px-10 py-3">
                             <div class="flex items-center">
                                 <img src="../resources/icons/wind.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">&nbsp; &nbsp;
                                 <span >Wind Speed</span>
                             </div>
-                            <span class="text-dark-txt">1.2 m/s</span>
+                            <span id="winSpeed" class="text-dark-txt">1.2 m/s</span>
                         </div>
                         <div class="flex justify-between px-10 py-3">
                             <div class="flex items-center">
                                 <img src="../resources/icons/visibility.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">&nbsp; &nbsp;
                                 <span >Visibility</span>
                             </div>
-                            <span class="text-dark-txt">8.5 km</span>
+                            <span id="visibility" class="text-dark-txt">8.5 km</span>
                         </div>
                     </div>
                     <div class="flex flex-col justify-center border divide-y rounded-2xl border-dark-border/10 bg-white/5 backdrop-blur-3xl divide-dark-border/10">
                         <div class="flex flex-col items-center justify-center grow">
                             <h3 class="text-3xl">
-                                <span>27</span><span>°C</span>
+                                <span id="maxTemp">27</span><span>°C</span>
                             </h3>
                             <div class="flex items-center justify-center text-sm">
                                 <img src="../resources/icons/temp_max.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">
                                 &nbsp; &nbsp;
-                                <p class="text-dark-txt">Max temperature</p>
+                                <p class="text-dark-txt">Maximum temperature</p>
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center grow">
                             <h3 class="text-3xl">
-                                <span>22</span><span>°C</span>
+                                <span id="minTemp">22</span><span>°C</span>
                             </h3>
                             <div class="flex items-center justify-center text-sm">
                                 <img src="../resources/icons/temp_min.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">
                                 &nbsp; &nbsp;
-                                <p class="text-dark-txt">Min temperature</p>
+                                <p class="text-dark-txt">Minimum temperature</p>
                             </div>
                         </div>
                     </div>
@@ -191,8 +190,8 @@
                                 <img src="../resources/icons/sunrise.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">
                             </div>
                             <div class="flex flex-col items-center">
-                                <p class="text-3xl text-dark-txt">06:02</p>
-                                <p>AM</p>
+                                <p id="sunrise" class="text-3xl text-dark-txt">06:02</p>
+                                <p id="sunriseMeridiem">AM</p>
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center grow">
@@ -202,56 +201,98 @@
                                 <img src="../resources/icons/sunset.svg" class="w-6 h-6 stroke-current text-dark-heading fill-none">
                             </div>
                             <div class="flex flex-col items-center">
-                                <p class="text-3xl text-dark-txt">05:43</p>
-                                <p>PM</p>
+                                <p id="sunset" class="text-3xl text-dark-txt">05:43</p>
+                                <p id="sunsetMeridiem">PM</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
 
                 <div class="grid grid-cols-5 grid-rows-1 gap-3 p-3 mt-3 border rounded-2xl border-dark-border/10 bg-white/5 backdrop-blur-3xl">
                     <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 border bg-gradient-to-b from-accent/10 to-[#FFC322]/10 rounded-2xl border-dark-border/10 backdrop-blur-3xl ">
-                        <h1 class="text-xl font-semibold">MON</h1>
-                        <p class="text-sm text-dark-txt">05/09</p>
-                        <img src="../resources/images/11n.png" class="w-20 h-20">
-                        <p class="text-sm text-dark-txt">Cloudy</p>
-                        <p class="text-2xl">27°C</p>
+                        <h1 id="foreDay0" class="text-xl font-semibold">FRI</h1>
+                        <p id="foreDate0" class="text-sm text-dark-txt">05/10</p>
+                        <div class="h-20 w-30">
+                            <img id="foreImg0" src="../resources/images/11n.png" class="h-20 ">
+                        </div>
+                        <p id="foreDesc0" class="text-sm text-dark-txt">Thunderstorm</p>
+                        <p id="foreTemp0" class="text-2xl">19°C</p>
                     </div>
                     <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 bg-transparent border rounded-2xl border-dark-border/10 backdrop-blur-3xl ">
-                        <h1 class="text-xl font-semibold">MON</h1>
-                        <p class="text-sm text-dark-txt">05/09</p>
-                        <img src="../resources/images/11n.png" class="w-20 h-20">
-                        <p class="text-sm text-dark-txt">Cloudy</p>
-                        <p class="text-2xl">27°C</p>
+                        <h1 id="foreDay1" class="text-xl font-semibold">SAT</h1>
+                        <p id="foreDate1" class="text-sm text-dark-txt">05/11</p>
+                        <div class="h-20 w-30">
+                            <img id="foreImg1" src="../resources/images/13d.png" class="w-20">
+                        </div>
+                        <p id="foreDesc1" class="text-sm text-dark-txt">Snow</p>
+                        <p id="foreTemp1" class="text-2xl">14°C</p>
                     </div>
                     <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 bg-transparent border rounded-2xl border-dark-border/10 backdrop-blur-3xl ">
-                        <h1 class="text-xl font-semibold">MON</h1>
-                        <p class="text-sm text-dark-txt">05/09</p>
-                        <img src="../resources/images/11n.png" class="w-20 h-20">
-                        <p class="text-sm text-dark-txt">Cloudy</p>
-                        <p class="text-2xl">27°C</p>
+                        <h1 id="foreDay2" class="text-xl font-semibold">SUN</h1>
+                        <p id="foreDate2" class="text-sm text-dark-txt">05/12</p>
+                        <div class="h-20 w-30">
+                            <img id="foreImg2" src="../resources/images/01d.png" class="w-20">
+                        </div>
+                        <p id="foreDesc2" class="text-sm text-dark-txt">Sunny</p>
+                        <p id="foreTemp2" class="text-2xl">27°C</p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 bg-transparent border rounded-2xl border-dark-border/10 backdrop-blur-3xl">
+                        <h1 id="foreDay3" class="text-xl font-semibold">MON</h1>
+                        <p id="foreDate3" class="text-sm text-dark-txt">05/13</p>
+                        <div class="h-20 w-30">
+                            <img id="foreImg3" src="../resources/images/09d.png" class="w-20">
+                        </div>
+                        <p id="foreDesc3" class="text-sm text-dark-txt">Rain</p>
+                        <p id="foreTemp3" class="text-2xl">20°C</p>
                     </div>
                     <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 bg-transparent border rounded-2xl border-dark-border/10 backdrop-blur-3xl ">
-                        <h1 class="text-xl font-semibold">MON</h1>
-                        <p class="text-sm text-dark-txt">05/09</p>
-                        <img src="../resources/images/11n.png" class="w-20 h-20">
-                        <p class="text-sm text-dark-txt">Cloudy</p>
-                        <p class="text-2xl">27°C</p>
-                    </div>
-                    <div class="flex flex-col items-center justify-center gap-3 px-10 py-4 bg-transparent border rounded-2xl border-dark-border/10 backdrop-blur-3xl ">
-                        <h1 class="text-xl font-semibold">MON</h1>
-                        <p class="text-sm text-dark-txt">05/09</p>
-                        <img src="../resources/images/11n.png" class="w-20 h-20">
-                        <p class="text-sm text-dark-txt">Cloudy</p>
-                        <p class="text-2xl">27°C</p>
+                        <h1 id="foreDay4" class="text-xl font-semibold">TUE</h1>
+                        <p id="foreDate4" class="text-sm text-dark-txt">05/14</p>
+                        <div class="h-20 w-30">
+                            <img id="foreImg4" src="../resources/images/50n.png" class="w-20">
+                        </div>
+                        <p id="foreDesc4" class="text-sm text-dark-txt">Mist</p>
+                        <p id="foreTemp4" class="text-2xl">22</p>
                     </div>
                 </div>
             </div>
+            <!-- Error msg -->
+            <!-- <div class="z-[1000] absolute w-[500px] h-20 text-sm bg-red-500/75 text-red-950 flex justify-center items-center left-[22%] translate-x-[22%] mt-5 outline-2 outline outline-red-950 rounded-md">
+                <div>Please enter a location !</div>
+            </div> -->
+
+    
+            <!-- Search sugestions -->
+            <div id="searchResult" class="absolute top-40 right-[50%] translate-x-[48%] text-dark-heading bg-dark-bg-secondary z-10 text-sm rounded-lg border border-dark-border/10 outline outline-2 outline-offset-4 outline-accent/50">
+                <div class="hidden divide-y divide-dark-border/10" id="searchSugestionContainer">
+                    <div class="searchSugestions">Colombo, Uva Province, LK</div>
+                    <div class="searchSugestions">Colombo, Uva Province, LK</div>
+                    <div class="searchSugestions">Colombo, Uva Province, LK</div>
+                    <div class="searchSugestions">Colombo, Uva Province, LK</div>
+                    <div class="searchSugestions">Colombo, Uva Province, LK</div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center hidden grow spawn" id="notFoundWindow">
+               <div class="!opacity-50">
+                <img src="../resources/ui/404.svg" class="w-[500px] p-10">
+               </div>
+                <h1 class="text-2xl text-center text-dark-heading">Oops! can't find any data related to your search ):</h1>
+            </div>
+
+            <div class="flex flex-col items-center grow spawn" id="searchWindow">
+                <div class="!opacity-50">
+                 <img src="../resources/ui/search.svg" class="w-[500px] p-10">
+                </div>
+                <h1 class="text-2xl text-center text-dark-heading">Do you want to know the weather conditions in your city ?</h1>
+            </div>
         </section>
-        <div class="py-3 text-sm text-center text-dark-txt">Copyright &copy; Darshana Wishwajith - 2024</div>
+        
+        <footer class="py-3 text-sm text-center text-dark-txt">
+            <div class="pt-1">All rights reserved &copy;
+                Weatherify v1.0.0 - 2024 | designed and developed by <a href="https://github.com/darshana-wishwajith"><u>Darshana Wishwajith</u></a> </div>
+        </footer>
     </div>
-    <script src="ui.js"></script>
+    <script src="ui.js" type="module"></script>
     <script src="script.js" type="module"></script>
 </body>
 </html>

@@ -3,3 +3,25 @@
 @tailwind utilities;
 
 
+.searchSugestions{
+    @apply px-8 py-3 cursor-pointer w-[440px] hover:bg-dark-bg-secondary-hover;
+}
+
+.spawn{
+    animation-name: spawn-ani;
+    animation-duration: 0.75s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes spawn-ani {
+    from{
+        scale: 0.75;
+        transform: translateY(10%);
+        @apply blur-sm;
+    }
+    to{
+        scale: 1;
+        @apply blur-none;
+        transform: translateY(0%);
+    }
+}

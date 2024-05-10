@@ -1,11 +1,8 @@
 import {OpenWeatherAPIKey} from '../keys.js';
 
-const city = "Kalubululanda";
-const limit = 1;
+export async function getCoordinates(city, limit){
 
-async function getCoordinates(city, limit, apiKey){
-
-    let geocodingAPIUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${apiKey}`;
+    let geocodingAPIUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${OpenWeatherAPIKey}`;
 
     try{
         const geoResponse = await fetch(geocodingAPIUrl);
@@ -13,14 +10,24 @@ async function getCoordinates(city, limit, apiKey){
             throw new Error(`Error : ${geoResponse.status} - ${geoResponse.statusText}`)
         }
         const geoJson = await geoResponse.json();
-        return {name : geoJson[0].name, lat : geoJson[0].lat, lon : geoJson[0].lon};
+
+        let jsonList = [];
+
+        for(let i=0; i<geoJson.length; i++){
+            jsonList.push(
+                {name : geoJson[i].name, state: geoJson[i].state, country : geoJson[i].country, lat : geoJson[i].lat, lon : geoJson[i].lon}
+            );
+        }
+
+        //console.log(jsonList);
+        return jsonList;
     }
     catch(error){
         console.error(error);
     }
 }
 
-async function getWeatherData(lat, lon){
+export async function getWeatherData(lat, lon){
     let openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OpenWeatherAPIKey}&units=metric`;
 
     try{
@@ -36,8 +43,8 @@ async function getWeatherData(lat, lon){
     }
 }
 
-async function getWeatherForecast(lat, lon, apiKey){
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+export async function getWeatherForecast(lat, lon){
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OpenWeatherAPIKey}&units=metric`;
 
     try{
         const forecastResponse = await fetch(forecastUrl);
@@ -54,62 +61,7 @@ async function getWeatherForecast(lat, lon, apiKey){
     }
 }
 
-async function processWeatherData(){
-
-    const coordinates = await getCoordinates(city, limit, OpenWeatherAPIKey);
-    const weatherData = await getWeatherData(coordinates.lat, coordinates.lon);
-    const forecastData = await getWeatherForecast(coordinates.lat, coordinates.lon, OpenWeatherAPIKey);
-
-    const dateTime = getDateTime();
-
-    const days = ['Sunday', 'Monday', 'Tuesday', 'WednesDay', 'Thursday', 'Friday', 'Saturday'];
-
-    const {
-
-        clouds:{all:cloudsPercentage},
-        coord:{lon:longitude, lat:latitude},
-        main:{humidity, pressure, temp, temp_max, temp_min},
-        name:currentCity,
-        rain,
-        sys:{country, sunrise, sunset},
-        timezone,
-        visibility,
-        weather:[{id:weatherId, main:shortDescription, description, icon: weatherImg}],
-        wind:{deg:windDirection, speed:windSpeed, gust:windGust}
-
-    } = weatherData;
-
-    console.log(weatherData);
-
-    //console.log(forecastData.list);
-
-    let forecastList = [];
-
-    for(let i=0; i<forecastData.list.length; i++){
-        if(forecastData.list[i].dt_txt.split(" ")[1] == '12:00:00'){
-            forecastList.push(i);
-        } 
-    }
-
-    //unix time comes from API is in seconds, it must be coverted to miliseconds for Date object.(*1000)
-    forecastList.forEach(index => {
-        let newDate = new Date(forecastData.list[index].dt * 1000);
-        // console.log(newDate.toUTCString());
-        // console.log(days[newDate.getDay()]);
-        // console.log(forecastData.list[index].main.temp.toFixed(1)+"°C")
-        
-        
-    });
-
-    //let sr = new Date(sunset * 1000);
-    //console.log(sr.getHours(), sr.getMinutes(), sr.getSeconds());
-}
-
-processWeatherData();
-
-
-
-function getDateTime(){
+export function getDateTime(){
 
     const days = ['Sunday', 'Monday', 'Tuesday', 'WednesDay', 'Thursday', 'Friday', 'Saturday'];
 
@@ -118,7 +70,7 @@ function getDateTime(){
 
     const dateObject = {
         year : date.getFullYear().toString(), 
-        month : date.getMonth().toString().padStart(2, 0),
+        month : (date.getMonth() + 1).toString().padStart(2, 0),
         date : date.getDate().toString().padStart(2, 0),
         day : today
     };
