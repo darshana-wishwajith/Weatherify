@@ -9,10 +9,10 @@ Weatherify is a simple weather application built using HTML, CSS, and JavaScript
 
 ## Screenshots
 
-![Screenshot 1](placeholder_image_url)
-![Screenshot 2](placeholder_image_url)
-![Screenshot 3](placeholder_image_url)
-![Screenshot 4](placeholder_image_url)
+![Screenshot 1](/ScreenShots/1.png)
+![Screenshot 2](/ScreenShots/2.png)
+![Screenshot 3](/ScreenShots/3.png)
+![Screenshot 4](/ScreenShots/4.png)
 
 ## Installation
 1. Clone the repository: `git@github.com:darshana-wishwajith/Weatherify.git`
