@@ -9,19 +9,18 @@
 
 .spawn{
     animation-name: spawn-ani;
-    animation-duration: 0.75s;
+    animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
 }
 
 @keyframes spawn-ani {
     from{
-        scale: 0.75;
-        transform: translateY(10%);
+        opacity: 0;
         @apply blur-sm;
     }
     to{
-        scale: 1;
+        opacity: 1;
         @apply blur-none;
-        transform: translateY(0%);
+        
     }
 }

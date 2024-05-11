@@ -24,6 +24,9 @@ module.exports = {
       },
       fontFamily: {
         'sans': ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      animation: {
+        'animate-spin': 'spin 0.1s linear infinite',
       }
     },
   },

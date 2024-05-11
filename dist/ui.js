@@ -40,6 +40,10 @@ const wSunrise = document.getElementById("sunrise");
 const sunriseMeridiem = document.getElementById("sunriseMeridiem");
 const wSunset = document.getElementById("sunset");
 const sunsetMeridiem = document.getElementById("sunsetMeridiem");
+const loadingSpinner = document.getElementById("loadingSpinner");
+const errorMsgDiv = document.getElementById("errorMsgDiv");
+const errorMsg = document.getElementById("errorMsg");
+const errorMsgClose = document.getElementById("errorMsgClose");
 
 
 if(window.localStorage.getItem("defaultLocation") === null){
@@ -48,7 +52,6 @@ if(window.localStorage.getItem("defaultLocation") === null){
 else{
     defaultLocation.textContent = window.localStorage.getItem("defaultLocation");
 }
-
 
 
 locationSearch.addEventListener("focusin", event => {
@@ -94,6 +97,12 @@ document.addEventListener("click", event => {
         });
     }
 })
+
+errorMsgClose.addEventListener("click", () => {
+    
+    errorMsgDiv.classList.add("hidden");
+
+});
 
 const allUnits = ['Select a unit', 'standard', 'metric', 'imperial'];
 
@@ -161,10 +170,20 @@ defaultLocationSelector.addEventListener("click", event => {
 locationSearchBtn.addEventListener("click", event => {
 
     if(locationSearch.value == ""){
-        alert("Please type a location");
+        console.log("Please type a location");
+        errorMsg.textContent = "Please type a location!";
+        errorMsgDiv.classList.remove("hidden");
+        setTimeout(() => {
+            errorMsgDiv.classList.add("hidden");
+        },3000);
     }
     else if(!isNaN(locationSearch.value)){
-        alert("Location can't be a number");
+        console.log("Location can't be a number");
+        errorMsg.textContent = "Location can't be a number!";
+        errorMsgDiv.classList.remove("hidden");
+        setTimeout(() => {
+            errorMsgDiv.classList.add("hidden");
+        },3000);
     }
     else{
         setWeatherData(2, [], locationSearch.value);
@@ -172,6 +191,12 @@ locationSearchBtn.addEventListener("click", event => {
 });
 
 async function setWeatherData(coordType, coods=[], city=""){
+
+    searchWindow.classList.add("hidden");
+    weatherDataContainer.classList.add("hidden");
+    notFoundWindow.classList.add("hidden");
+
+    loadingSpinner.classList.remove("hidden");
 
     let weatherData = null;
     let forecastData = null;
@@ -212,6 +237,8 @@ async function setWeatherData(coordType, coods=[], city=""){
             errors = true;
         }
     }
+
+    loadingSpinner.classList.add("hidden");
 
     if(errors){
         searchWindow.classList.add("hidden");

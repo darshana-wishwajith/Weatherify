@@ -257,9 +257,23 @@
                 </div>
             </div>
             <!-- Error msg -->
-            <!-- <div class="z-[1000] absolute w-[500px] h-20 text-sm bg-red-500/75 text-red-950 flex justify-center items-center left-[22%] translate-x-[22%] mt-5 outline-2 outline outline-red-950 rounded-md">
-                <div>Please enter a location !</div>
-            </div> -->
+            <div class="z-[1000] absolute w-[500px] h-20 bg-red-500/40 text-red-400 flex justify-between items-center left-[22%] translate-x-[22%] mt-5 outline-2 outline outline-red-400 rounded-md font-semibold px-5 hidden" id="errorMsgDiv">
+                <div class="flex">
+                    <div class="pr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                          </svg>
+                          
+                    </div>
+                    <div id="errorMsg">Please enter a location !</div>
+                </div>
+
+                <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer hover:bg-red-50/10" id="errorMsgClose">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                </div>
+            </div>
 
     
             <!-- Search sugestions -->
@@ -292,6 +306,11 @@
                 Weatherify v1.0.0 - 2024 | designed and developed by <a href="https://github.com/darshana-wishwajith"><u>Darshana Wishwajith</u></a> </div>
         </footer>
     </div>
+    
+    <!-- Spinner -->
+    <span class="absolute top-[50vh] left-[50vw] hidden divide-none" id="loadingSpinner">
+        <img src="../resources/ui/spinner.svg" class="w-20 h-20 animate-spin spin-slow divide-none">
+    </span>
     <script src="ui.js" type="module"></script>
     <script src="script.js" type="module"></script>
 </body>
