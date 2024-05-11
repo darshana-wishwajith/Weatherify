@@ -15,7 +15,7 @@ Weatherify is a simple weather application built using HTML, CSS, and JavaScript
 ![Screenshot 4](placeholder_image_url)
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your-username/weatherify.git`
+1. Clone the repository: `git@github.com:darshana-wishwajith/Weatherify.git`
 2. Open `index.html` in your web browser
 
 ## Usage
