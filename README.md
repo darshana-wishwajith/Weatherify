@@ -5,7 +5,7 @@ Weatherify is a simple weather application built using HTML, CSS, and JavaScript
 ## Features
 - View current weather conditions for any location
 - Detailed weather information including temperature, humidity, and wind speed
-- Responsive design for seamless experience on desktop and mobile devices
+- Seamless experience on desktop
 
 ## Screenshots
 
@@ -24,7 +24,7 @@ Weatherify is a simple weather application built using HTML, CSS, and JavaScript
 3. View the current weather conditions
 
 ## Credits
-- Icons provided by [OpenWeather](https://openweathermap.org/weather-conditions)
+- Weather data provided by [OpenWeather](https://openweathermap.org/weather-conditions)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
